@@ -5,35 +5,22 @@ namespace Makruul
 {
     public class Player : Entity, IOption
     {
-        
-        public List<Region> VisitedRegions { get; set; }
-
-    
         private List<Food> _foods;
-
         private int Experience { get; set; }
         public int Level = 1;
         private int _baseDmg = 15;
         private int baseHealth;
-        private Weapon equipedWeapon;
-        private List<Weapon> Weapons => _weapons;
-        private readonly List<Weapon> _weapons;
+        private Weapon _equipedWeapon;
         public int goldCoins;
-        
-
 
         public Player(string name)
         {
             health = 100;
             baseHealth = 100;
             goldCoins = 250;
-            _weapons = new List<Weapon>();
             _foods = new List<Food>();
             this.name = name;
-            VisitedRegions = new List<Region>();
-            equipedWeapon = Resources.treeSword;
-            Weapons.Add(Resources.treeSword);
-       
+            _equipedWeapon = new Weapon(5, "Tree sword");
         }
 
         public void GainExperience(int experience)
@@ -82,15 +69,9 @@ namespace Makruul
             return null;
         }
 
-        public void AddWeapon(Weapon weapon)
+        public void EquipWeapon(Weapon weapon)
         {
-            _weapons.Add(weapon);
-            EquipWeapon(weapon);
-        }
-
-        private void EquipWeapon(Weapon weapon)
-        {
-            equipedWeapon = weapon;
+            _equipedWeapon = weapon;
         }
 
         public void AddFood(Food food)
@@ -110,7 +91,7 @@ namespace Makruul
 
         public override int Attack<T>(T entity)
         {
-            var dmg =  new Random().Next(_baseDmg, (_baseDmg + equipedWeapon.damageBonus));
+            var dmg =  new Random().Next(_baseDmg, (_baseDmg + _equipedWeapon.damageBonus));
             entity.health -= dmg;
             return dmg;
         }
@@ -120,7 +101,7 @@ namespace Makruul
         {
             return $"" +
                    $"Health: {health}/{baseHealth} Hp remaining\n" +
-                   $"Currently equiped: {equipedWeapon}\n" +
+                   $"Currently equiped: {_equipedWeapon}\n" +
                    $"Currently Lvl: {Level}\n" +
                    $"Goldcoins: {goldCoins}\n" ;
         }

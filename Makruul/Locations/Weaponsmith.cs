@@ -40,7 +40,7 @@ namespace Makruul
             {
                 Console.WriteLine($"You sucessfully buy {itemToBuy.name} and equip it!\n");
                 player.PayForItem(_weapons[itemToBuy]);
-                player.AddWeapon(itemToBuy);
+                player.EquipWeapon(itemToBuy);
             }
         }
 
