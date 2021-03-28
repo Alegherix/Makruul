@@ -59,7 +59,7 @@ namespace Makruul
                 }
                 Console.WriteLine("\n");
                 
-                Thread.Sleep(300);
+                Thread.Sleep(800);
 
                 if (player.health <= 0)
                 {
@@ -70,7 +70,9 @@ namespace Makruul
                 else if (monster.health <= 0)
                 {
                     Console.WriteLine($"You slayed the ferocious beast and gained {monster.ExperienceGiven} experience" );
+                    Console.WriteLine($"You loot {monster.name} for {monster.loot} Goldcoins");
                     player.GainExperience(monster.ExperienceGiven);
+                    player.goldCoins += monster.loot;
                     _isDone = true;
                     break;
                 }

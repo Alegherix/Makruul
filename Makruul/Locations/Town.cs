@@ -53,29 +53,19 @@ namespace Makruul
         public void FetchAction()
         {
             Console.WriteLine("What do you want to do?");
-            performChoice(GetPlayerChoice());
+            PerformChoice(GetPlayerChoice());
         }
         
 
         public int GetPlayerChoice()
         {
+            List<String> allOptions = new List<string>();
+            allOptions.AddRange(_options.SelectMany((option => option.GetOptions())).ToArray());
+            allOptions.Add("Leave Town");
 
-            // Ghetto solution 
-            var allPlayerOptions = player.GetOptions();
-            var allBlackSmithOptions = _options[1].GetOptions();
-            var allWeaponSmithOptions = _options[2].GetOptions();
-
-            var options = new string[6];
-            options[0] = allPlayerOptions[0];
-            options[1] = allPlayerOptions[1];
-            options[2] = allPlayerOptions[2];
-            options[3] = allBlackSmithOptions[0];
-            options[4] = allWeaponSmithOptions[0];
-            options[5] = "Leave town";
-
-            for (int i = 0; i < options.Length; i++)
+            for (int i = 0; i < allOptions.Count; i++)
             {
-                Console.WriteLine($"{i}) {options[i]}");
+                Console.WriteLine($"{i}) {allOptions[i]}");
             }
 
             Console.Write("Enter the number of the action you want to take: ");
@@ -83,10 +73,10 @@ namespace Makruul
 
         }
 
-        public void performChoice(int choice)
+        public void PerformChoice(int choice)
         {
             
-            if(choice <=2) player.PerformOption(choice);
+            if(choice >0 && choice <=2) player.PerformOption(choice);
             else if(choice == 3) establishments[0].PerformOption();
             else if(choice == 4) establishments[1].PerformOption();
             else

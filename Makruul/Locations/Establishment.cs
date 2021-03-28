@@ -72,6 +72,8 @@ namespace Makruul
 
         public void PerformOption(int option = 0)
         {
+            // Reset flag in case we wanna revisit shop, so we don't need to reinit objects.
+            if (_isDone) _isDone = false;
             Run();
         }
     }

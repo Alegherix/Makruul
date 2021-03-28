@@ -6,11 +6,14 @@ namespace Makruul
     {
         protected readonly int baseDmg;
         public int ExperienceGiven { get;}
+        public int loot;
         
-        protected Monster(int baseDmg, int experienceGiven)
+        protected Monster(int baseDmg, int experienceGiven, int lowerLootLimit, int upperLootLimit )
         {
+            var rand = new Random();
             this.baseDmg = baseDmg;
             this.ExperienceGiven = experienceGiven;
+            loot = rand.Next(lowerLootLimit, upperLootLimit);
         }
 
         public override int Attack<T>(T entity)
@@ -24,5 +27,6 @@ namespace Makruul
         {
             return $"Health: {health}";
         }
+        
     }
 }

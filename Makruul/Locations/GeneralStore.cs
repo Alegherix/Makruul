@@ -23,8 +23,6 @@ namespace Makruul
          }
         
         
-
-
         protected override void ShowGoods()
         {
             foreach(KeyValuePair<Food, int> entry in _foods)

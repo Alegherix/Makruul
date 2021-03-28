@@ -20,20 +20,6 @@ namespace Makruul
             _weapons[ironDagger] = 65;
             _weapons[ironShortsword] = 140;
         }
-        
-        
-        void BuyWeapon(string itemName)
-        {
-            Weapon itemToBuy = _weapons.Keys.First((weapon => weapon.name == itemName));
-            if(itemToBuy == null) return;
-            if (_weapons[itemToBuy] > player.goldCoins) Console.WriteLine("You don't have enough goldcoins to buy this");
-            else
-            {
-                Console.WriteLine($"You sucessfully buy {itemToBuy.name} and equip it");
-                player.PayForItem(_weapons[itemToBuy]);
-                player.AddWeapon(itemToBuy);
-            }
-        }
 
         protected override void ShowGoods()
         {

@@ -12,7 +12,7 @@ namespace Makruul
         private List<Food> _foods;
 
         private int Experience { get; set; }
-        private int _level = 1;
+        public int _level = 1;
         private int _baseDmg = 15;
         private int baseHealth;
         private Weapon equipedWeapon;

@@ -4,10 +4,12 @@ using System.Threading;
 
 namespace Makruul
 {
-    public class Game
+    public class Game : INode
     {
         private Player player;
-
+        private Stack<INode> actionNodes;
+        private Encounter bossEncounter;
+        
         void ShowIntroText()
         {
             Console.WriteLine("          _____                    _____                    _____                    _____                    _____                    _____                    _____  \n         /\\    \\                  /\\    \\                  /\\    \\                  /\\    \\                  /\\    \\                  /\\    \\                  /\\    \\ \n        /::\\____\\                /::\\    \\                /::\\____\\                /::\\    \\                /::\\____\\                /::\\____\\                /::\\____\\\n       /::::|   |               /::::\\    \\              /:::/    /               /::::\\    \\              /:::/    /               /:::/    /               /:::/    /\n      /:::::|   |              /::::::\\    \\            /:::/    /               /::::::\\    \\            /:::/    /               /:::/    /               /:::/    / \n     /::::::|   |             /:::/\\:::\\    \\          /:::/    /               /:::/\\:::\\    \\          /:::/    /               /:::/    /               /:::/    /  \n    /:::/|::|   |            /:::/__\\:::\\    \\        /:::/____/               /:::/__\\:::\\    \\        /:::/    /               /:::/    /               /:::/    /   \n   /:::/ |::|   |           /::::\\   \\:::\\    \\      /::::\\    \\              /::::\\   \\:::\\    \\      /:::/    /               /:::/    /               /:::/    /    \n  /:::/  |::|___|______    /::::::\\   \\:::\\    \\    /::::::\\____\\________    /::::::\\   \\:::\\    \\    /:::/    /      _____    /:::/    /      _____    /:::/    /     \n /:::/   |::::::::\\    \\  /:::/\\:::\\   \\:::\\    \\  /:::/\\:::::::::::\\    \\  /:::/\\:::\\   \\:::\\____\\  /:::/____/      /\\    \\  /:::/____/      /\\    \\  /:::/    /      \n/:::/    |:::::::::\\____\\/:::/  \\:::\\   \\:::\\____\\/:::/  |:::::::::::\\____\\/:::/  \\:::\\   \\:::|    ||:::|    /      /::\\____\\|:::|    /      /::\\____\\/:::/____/       \n\\::/    / ~~~~~/:::/    /\\::/    \\:::\\  /:::/    /\\::/   |::|~~~|~~~~~     \\::/   |::::\\  /:::|____||:::|____\\     /:::/    /|:::|____\\     /:::/    /\\:::\\    \\       \n \\/____/      /:::/    /  \\/____/ \\:::\\/:::/    /  \\/____|::|   |           \\/____|:::::\\/:::/    /  \\:::\\    \\   /:::/    /  \\:::\\    \\   /:::/    /  \\:::\\    \\      \n             /:::/    /            \\::::::/    /         |::|   |                 |:::::::::/    /    \\:::\\    \\ /:::/    /    \\:::\\    \\ /:::/    /    \\:::\\    \\     \n            /:::/    /              \\::::/    /          |::|   |                 |::|\\::::/    /      \\:::\\    /:::/    /      \\:::\\    /:::/    /      \\:::\\    \\    \n           /:::/    /               /:::/    /           |::|   |                 |::| \\::/____/        \\:::\\__/:::/    /        \\:::\\__/:::/    /        \\:::\\    \\   \n          /:::/    /               /:::/    /            |::|   |                 |::|  ~|               \\::::::::/    /          \\::::::::/    /          \\:::\\    \\  \n         /:::/    /               /:::/    /             |::|   |                 |::|   |                \\::::::/    /            \\::::::/    /            \\:::\\    \\ \n        /:::/    /               /:::/    /              \\::|   |                 \\::|   |                 \\::::/    /              \\::::/    /              \\:::\\____\\\n        \\::/    /                \\::/    /                \\:|   |                  \\:|   |                  \\::/____/                \\::/____/                \\::/    /\n         \\/____/                  \\/____/                  \\|___|                   \\|___|                   ~~                       ~~                       \\/____/ \n                                                                                                                                                                       ");
@@ -16,58 +18,53 @@ namespace Makruul
         void SetupCharacter()
         {
             
-            Console.Write("Input the name of your character: ");
-            var chosenName = Console.ReadLine();
-            player = new Player(chosenName);
+            // Console.Write("Input the name of your character: ");
+            // var chosenName = Console.ReadLine();
+            // player = new Player(chosenName);
+            
+            // GameUtils.GetDelayedText($"A fitting name for a warrior, {player.name}", 1200);
+            // GameUtils.GetDelayedText("Good luck on your adventure young traveller", 1200);
+            // GameUtils.GetDelayedText("and so the journey begins....", 1200);
+            // GameUtils.GetDelayedText("\n\n\n\n", 1200);
 
-            Town town = new Town("Skeving", player);
-            town.Run();
-
-            // GetDelayedText($"A fitting name for a warrior, {player.name}", 1200);
-            // GetDelayedText("Good luck on your adventure young traveller", 1200);
-            // GetDelayedText("and so the journey begins....", 1200);
-            // GetDelayedText("\n\n\n\n", 1200);
-
-
+            player = new Player("Alegherix");
         }
 
+        public void TellStoryTask()
+        {
+            GameUtils.GetDelayedText("Your task is to find Makruul the gruesome, a hideous werewolf that's been ravaging the lands", 800);
+            GameUtils.GetDelayedText("The last time he was spotted was close to cave", 1200);
+        }
         public void StartGame()
         {
-            Resources.AddRegions();
+             bossEncounter = new Encounter(player, new Makruul());
             // ShowIntroText();
             SetupCharacter();
-            // EnterStartingZone();
+            actionNodes = new Stack<INode>();
+            // actionNodes.Push(new StartingZone(player));
+            actionNodes.Push(new PlayerAction(player, actionNodes));
+            // actionNodes.Push(new Town("Svelinge", player));
+            // TellStoryTask();
+            Run();
         }
 
-        private void GetDelayedText(string text, int delay)
+        public bool IsDone()
         {
-            Console.WriteLine(text);
-            Thread.Sleep(delay);
+            return bossEncounter.IsDone();
         }
-        
-        
-        public void EnterStartingZone()
-        {
-            List<string> gameTexts = new List<string>(){
-                "You find yourself wandering aimlessly in a dark forest", 
-                "You let your eyes wonder freely trying to make out something of resemblance",
-                "You hear a muffled roar coming from some bushes just behind some cow parsley.",
-            };
 
-            foreach (var gameText in gameTexts)
+        public void Run()
+        {
+            // Make progress until Level 5, then face of with Makruul,
+            
+            while (player._level <6)
             {
-                GetDelayedText(gameText, 1200);
+                if (actionNodes.Count > 0) actionNodes.Pop().Run();
+                else actionNodes.Push(new PlayerAction(player, actionNodes));
             }
-            Encounter initialEncounter = new Encounter(player, new Wolf());
-            initialEncounter.Run();
             
+            bossEncounter.Run();
             
-           
         }
-        
-        
-        
-        
-    
     }
 }
