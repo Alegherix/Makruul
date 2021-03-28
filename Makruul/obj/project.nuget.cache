@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "X+3evQvDaqjZ9kznFPQdYvFM0U5ajXE+kztPdGUi8w+ELcddAQYZetlY83SNgCbVCV77H9bLVnjdCYa6sM1ELw==",
+  "success": true,
+  "projectFilePath": "/home/psychoslaz/RiderProjects/Makruul/Makruul/Makruul.csproj",
+  "expectedPackageFiles": [
+    "/home/psychoslaz/.nuget/packages/microsoft.aspnetcore.app.ref/5.0.0/microsoft.aspnetcore.app.ref.5.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

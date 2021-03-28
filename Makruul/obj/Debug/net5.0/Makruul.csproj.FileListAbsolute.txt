@@ -1,0 +1,16 @@
+/home/psychoslaz/RiderProjects/Makruul/Makruul/bin/Debug/net5.0/Makruul
+/home/psychoslaz/RiderProjects/Makruul/Makruul/bin/Debug/net5.0/Makruul.deps.json
+/home/psychoslaz/RiderProjects/Makruul/Makruul/bin/Debug/net5.0/Makruul.runtimeconfig.json
+/home/psychoslaz/RiderProjects/Makruul/Makruul/bin/Debug/net5.0/Makruul.runtimeconfig.dev.json
+/home/psychoslaz/RiderProjects/Makruul/Makruul/bin/Debug/net5.0/Makruul.dll
+/home/psychoslaz/RiderProjects/Makruul/Makruul/bin/Debug/net5.0/ref/Makruul.dll
+/home/psychoslaz/RiderProjects/Makruul/Makruul/bin/Debug/net5.0/Makruul.pdb
+/home/psychoslaz/RiderProjects/Makruul/Makruul/obj/Debug/net5.0/Makruul.csprojAssemblyReference.cache
+/home/psychoslaz/RiderProjects/Makruul/Makruul/obj/Debug/net5.0/Makruul.GeneratedMSBuildEditorConfig.editorconfig
+/home/psychoslaz/RiderProjects/Makruul/Makruul/obj/Debug/net5.0/Makruul.AssemblyInfoInputs.cache
+/home/psychoslaz/RiderProjects/Makruul/Makruul/obj/Debug/net5.0/Makruul.AssemblyInfo.cs
+/home/psychoslaz/RiderProjects/Makruul/Makruul/obj/Debug/net5.0/Makruul.csproj.CoreCompileInputs.cache
+/home/psychoslaz/RiderProjects/Makruul/Makruul/obj/Debug/net5.0/Makruul.dll
+/home/psychoslaz/RiderProjects/Makruul/Makruul/obj/Debug/net5.0/ref/Makruul.dll
+/home/psychoslaz/RiderProjects/Makruul/Makruul/obj/Debug/net5.0/Makruul.pdb
+/home/psychoslaz/RiderProjects/Makruul/Makruul/obj/Debug/net5.0/Makruul.genruntimeconfig.cache

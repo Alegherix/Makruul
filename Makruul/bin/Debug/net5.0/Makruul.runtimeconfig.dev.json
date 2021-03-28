@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "/home/psychoslaz/.dotnet/store/|arch|/|tfm|",
+      "/home/psychoslaz/.nuget/packages"
+    ]
+  }
+}
