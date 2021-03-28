@@ -2,8 +2,8 @@ namespace Makruul
 {
     public interface INode
     {
-        public bool isDone();
+        public bool IsDone();
 
-        public void run();
+        public void Run();
     }
 }

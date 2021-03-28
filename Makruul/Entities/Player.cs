@@ -8,16 +8,18 @@ namespace Makruul
         
         public List<Region> VisitedRegions { get; set; }
 
-        private List<Weapon> Weapons => _weapons;
+    
+        private List<Food> _foods;
 
         private int Experience { get; set; }
         private int _level = 1;
         private int _baseDmg = 15;
         private int baseHealth;
         private Weapon equipedWeapon;
+        private List<Weapon> Weapons => _weapons;
         private readonly List<Weapon> _weapons;
         
-        private int goldCoins;
+        public int goldCoins;
         
 
 
@@ -25,8 +27,9 @@ namespace Makruul
         {
             health = 100;
             baseHealth = 100;
-            goldCoins = 15;
+            goldCoins = 250;
             _weapons = new List<Weapon>();
+            _foods = new List<Food>();
             this.name = name;
             VisitedRegions = new List<Region>();
             equipedWeapon = Resources.treeSword;
@@ -58,6 +61,27 @@ namespace Makruul
         public void Eat()
         {
             
+        }
+
+        public void AddWeapon(Weapon weapon)
+        {
+            _weapons.Add(weapon);
+            EquipWeapon(weapon);
+        }
+
+        private void EquipWeapon(Weapon weapon)
+        {
+            equipedWeapon = weapon;
+        }
+
+        public void AddFood(Food food)
+        {
+            _foods.Add(food);
+        }
+
+        public void PayForItem(int amount)
+        {
+            this.goldCoins -= amount;
         }
 
         private Boolean ShouldLevelUp()

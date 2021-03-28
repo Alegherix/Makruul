@@ -4,7 +4,7 @@ namespace Makruul
 {
     public static class Resources
     {
-        public static Weapon treeSword = new Weapon(5);
+        public static Weapon treeSword = new Weapon(5, "Tree sword");
 
 
 

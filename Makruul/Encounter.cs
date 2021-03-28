@@ -16,12 +16,12 @@ namespace Makruul
             this.monster = monster;
         }
 
-        public bool isDone()
+        public bool IsDone()
         {
             return _isDone;
         }
 
-        public void run()
+        public void Run()
         {
             DecideAction(GetPlayerFightResponse(), () => InitiateFight(player, monster), () => FleeTheScene());
         }
