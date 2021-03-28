@@ -37,7 +37,6 @@ namespace Makruul
 
         protected override void ConductBusiness(string itemName)
         {
-            // Console.WriteLine("Its fucking up here");
             Food itemToBuy = _foods.Keys.First((food => food.name == itemName));
             if(itemToBuy == null) return;
             if (_foods[itemToBuy] > player.goldCoins) Console.WriteLine("You don't have enough Goldcoins to buy this\n");
@@ -51,9 +50,9 @@ namespace Makruul
 
         protected override void GreetPlayer()
         {
-            Console.WriteLine($"Hello there traveller, I'm {owner} welcome to my store\nI assume you want to browse my goods!\n");
+            GameUtils.GetDelayedText($"\nHello there traveller, I'm {owner} welcome to my store", 600);
+            GameUtils.GetDelayedText("I assume you want to browse my goods!\n");
         }
 
-       
     }
 }

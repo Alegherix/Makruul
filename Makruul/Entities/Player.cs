@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Makruul
 {
-    public class Player : Entity
+    public class Player : Entity, IOption
     {
         
         public List<Region> VisitedRegions { get; set; }
@@ -58,9 +58,29 @@ namespace Makruul
             }
         }
 
-        public void Eat()
+        public void Eat(Food food)
         {
-            
+            // Makes sure not to overheal
+            health = health + food.healing > baseHealth ? baseHealth : health += food.healing;
+
+            _foods.Remove(food);
+            Console.WriteLine($"You consume {food.name} healing you for {food.healing}");
+            Console.WriteLine($"Current health: {health}/{baseHealth}");
+        }
+
+        public Food AskWhichFoodToEat()
+        {
+            Console.WriteLine($"Current health: {health}/{baseHealth}");
+            Console.WriteLine("Which food do you want to consume?");
+            for (int i = 0; i < _foods.Count; i++)
+            {
+                Console.WriteLine($"{i}) {_foods[i]}");
+            }
+
+            Console.Write("Enter your choice: ");
+            int choice = GameUtils.GetNumberInput();
+            if (choice >= 0 && choice < _foods.Count) return _foods[choice];
+            return null;
         }
 
         public void AddWeapon(Weapon weapon)
@@ -101,9 +121,44 @@ namespace Makruul
         {
             return $"" +
                    $"Health: {baseHealth}/{health} Hp remaining\n" +
-                   $"Currently equiped: ${equipedWeapon}\n" +
+                   $"Currently equiped: {equipedWeapon}\n" +
                    $"Currently Lvl: {_level}\n" +
-                   $"Goldcoins: ${goldCoins}" ;
+                   $"Goldcoins: {goldCoins}\n" ;
         }
+
+        public string[] GetOptions()
+        {
+            return new[]{"Show Player Stats", "Show Player Inventory", "Consume bought food"};
+        }
+
+        public void PerformOption(int option)
+        {
+            switch (option)
+            {
+                case 0: Console.WriteLine(this); 
+                    break;
+                case 1:
+                {
+                    Console.WriteLine("In your inventory there's currently: ");
+                    _foods.ForEach(Console.WriteLine);
+                    break;
+                }
+                case 2:
+                {
+                    if (_foods.Count > 0)
+                    {
+                        var food = AskWhichFoodToEat();
+                        if(food != null) Eat(food);
+                        break;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
+            Console.WriteLine();
+        }
+        
     }
 }

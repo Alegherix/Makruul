@@ -60,7 +60,8 @@ namespace Makruul
 
         protected override void GreetPlayer()
         {
-            Console.WriteLine($"Hello there traveller, I'm {owner}, the town blacksmith!\nI assume you want to browse my weapons!\n");
+            GameUtils.GetDelayedText($"Hello there traveller, I'm {owner}, the town blacksmith!", 600);
+            GameUtils.GetDelayedText("I assume you want to browse my weapons!\n", 600);
         }
     }
 }

@@ -10,5 +10,10 @@ namespace Makruul
             this.name = name;
             this.healing = healing;
         }
+
+        public override string ToString()
+        {
+            return $"{name} - ({healing} health regeneration)";
+        }
     }
 }

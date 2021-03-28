@@ -2,7 +2,7 @@ using System;
 
 namespace Makruul
 {
-    public abstract class Establishment : INode
+    public abstract class Establishment : INode, IOption
     {
         
         private bool _isDone;
@@ -38,8 +38,8 @@ namespace Makruul
         
         private void GetPlayerAction()
         {
-            Console.WriteLine($"You currently have {player.goldCoins} Goldcoins");
-            Console.WriteLine("So what do you wanna do?");
+            GameUtils.GetDelayedText($"You currently have {player.goldCoins} Goldcoins");
+            GameUtils.GetDelayedText("So what do you wanna do?");
             Console.Write("Type either the name of the item you wish to buy or q to leave: ");
             var answer = Console.ReadLine();
 
@@ -50,7 +50,7 @@ namespace Makruul
                 if (properAnswer == "q")
                 {
                     _isDone = true;
-                    Console.WriteLine($"You thank {owner} and leave the store");
+                    Console.WriteLine($"You thank {owner} and leave the store \n");
                 }
                 else
                 {
@@ -63,6 +63,16 @@ namespace Makruul
                 Console.WriteLine("The Shopkeeper shakes his head in disappointment towards you\n");
                 GetPlayerAction();
             }
+        }
+
+        public string[] GetOptions()
+        {
+            return new[] {$"Visit the {this.GetType().Name}"};
+        }
+
+        public void PerformOption(int option = 0)
+        {
+            Run();
         }
     }
 }

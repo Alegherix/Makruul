@@ -19,7 +19,9 @@ namespace Makruul
             Console.Write("Input the name of your character: ");
             var chosenName = Console.ReadLine();
             player = new Player(chosenName);
-            
+
+            Town town = new Town("Skeving", player);
+            town.Run();
 
             // GetDelayedText($"A fitting name for a warrior, {player.name}", 1200);
             // GetDelayedText("Good luck on your adventure young traveller", 1200);

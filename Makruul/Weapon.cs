@@ -10,5 +10,10 @@ namespace Makruul
             this.damageBonus = damageBonus;
             this.name = name;
         }
+
+        public override string ToString()
+        {
+            return $"{name} - {damageBonus} damage";
+        }
     }
 }

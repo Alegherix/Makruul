@@ -9,8 +9,6 @@ namespace Makruul
             var game = new Game();
             game.StartGame();
         }
-
-  
     }
     
    
