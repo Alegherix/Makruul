@@ -8,8 +8,8 @@ namespace Makruul
     {
         private Player player;
         private Stack<INode> actionNodes;
-        private Encounter bossEncounter;
-        
+        private Monster makruul;
+
         void ShowIntroText()
         {
             Console.WriteLine("          _____                    _____                    _____                    _____                    _____                    _____                    _____  \n         /\\    \\                  /\\    \\                  /\\    \\                  /\\    \\                  /\\    \\                  /\\    \\                  /\\    \\ \n        /::\\____\\                /::\\    \\                /::\\____\\                /::\\    \\                /::\\____\\                /::\\____\\                /::\\____\\\n       /::::|   |               /::::\\    \\              /:::/    /               /::::\\    \\              /:::/    /               /:::/    /               /:::/    /\n      /:::::|   |              /::::::\\    \\            /:::/    /               /::::::\\    \\            /:::/    /               /:::/    /               /:::/    / \n     /::::::|   |             /:::/\\:::\\    \\          /:::/    /               /:::/\\:::\\    \\          /:::/    /               /:::/    /               /:::/    /  \n    /:::/|::|   |            /:::/__\\:::\\    \\        /:::/____/               /:::/__\\:::\\    \\        /:::/    /               /:::/    /               /:::/    /   \n   /:::/ |::|   |           /::::\\   \\:::\\    \\      /::::\\    \\              /::::\\   \\:::\\    \\      /:::/    /               /:::/    /               /:::/    /    \n  /:::/  |::|___|______    /::::::\\   \\:::\\    \\    /::::::\\____\\________    /::::::\\   \\:::\\    \\    /:::/    /      _____    /:::/    /      _____    /:::/    /     \n /:::/   |::::::::\\    \\  /:::/\\:::\\   \\:::\\    \\  /:::/\\:::::::::::\\    \\  /:::/\\:::\\   \\:::\\____\\  /:::/____/      /\\    \\  /:::/____/      /\\    \\  /:::/    /      \n/:::/    |:::::::::\\____\\/:::/  \\:::\\   \\:::\\____\\/:::/  |:::::::::::\\____\\/:::/  \\:::\\   \\:::|    ||:::|    /      /::\\____\\|:::|    /      /::\\____\\/:::/____/       \n\\::/    / ~~~~~/:::/    /\\::/    \\:::\\  /:::/    /\\::/   |::|~~~|~~~~~     \\::/   |::::\\  /:::|____||:::|____\\     /:::/    /|:::|____\\     /:::/    /\\:::\\    \\       \n \\/____/      /:::/    /  \\/____/ \\:::\\/:::/    /  \\/____|::|   |           \\/____|:::::\\/:::/    /  \\:::\\    \\   /:::/    /  \\:::\\    \\   /:::/    /  \\:::\\    \\      \n             /:::/    /            \\::::::/    /         |::|   |                 |:::::::::/    /    \\:::\\    \\ /:::/    /    \\:::\\    \\ /:::/    /    \\:::\\    \\     \n            /:::/    /              \\::::/    /          |::|   |                 |::|\\::::/    /      \\:::\\    /:::/    /      \\:::\\    /:::/    /      \\:::\\    \\    \n           /:::/    /               /:::/    /           |::|   |                 |::| \\::/____/        \\:::\\__/:::/    /        \\:::\\__/:::/    /        \\:::\\    \\   \n          /:::/    /               /:::/    /            |::|   |                 |::|  ~|               \\::::::::/    /          \\::::::::/    /          \\:::\\    \\  \n         /:::/    /               /:::/    /             |::|   |                 |::|   |                \\::::::/    /            \\::::::/    /            \\:::\\    \\ \n        /:::/    /               /:::/    /              \\::|   |                 \\::|   |                 \\::::/    /              \\::::/    /              \\:::\\____\\\n        \\::/    /                \\::/    /                \\:|   |                  \\:|   |                  \\::/____/                \\::/____/                \\::/    /\n         \\/____/                  \\/____/                  \\|___|                   \\|___|                   ~~                       ~~                       \\/____/ \n                                                                                                                                                                       ");
@@ -18,16 +18,14 @@ namespace Makruul
         void SetupCharacter()
         {
             
-            // Console.Write("Input the name of your character: ");
-            // var chosenName = Console.ReadLine();
-            // player = new Player(chosenName);
+            Console.Write("Input the name of your character: ");
+            var chosenName = Console.ReadLine();
+            player = new Player(chosenName);
             
-            // GameUtils.GetDelayedText($"A fitting name for a warrior, {player.name}", 1200);
-            // GameUtils.GetDelayedText("Good luck on your adventure young traveller", 1200);
-            // GameUtils.GetDelayedText("and so the journey begins....", 1200);
-            // GameUtils.GetDelayedText("\n\n\n\n", 1200);
-
-            player = new Player("Alegherix");
+            GameUtils.GetDelayedText($"A fitting name for a warrior, {player.name}", 1200);
+            GameUtils.GetDelayedText("Good luck on your adventure young traveller", 1200);
+            GameUtils.GetDelayedText("and so the journey begins....", 1200);
+            GameUtils.GetDelayedText("\n\n\n\n", 1200);
         }
 
         public void TellStoryTask()
@@ -37,34 +35,31 @@ namespace Makruul
         }
         public void StartGame()
         {
-             bossEncounter = new Encounter(player, new Makruul());
-            // ShowIntroText();
-            SetupCharacter();
             actionNodes = new Stack<INode>();
-            // actionNodes.Push(new StartingZone(player));
-            actionNodes.Push(new PlayerAction(player, actionNodes));
-            // actionNodes.Push(new Town("Svelinge", player));
-            // TellStoryTask();
+            ShowIntroText();
+            SetupCharacter();
+          
+            actionNodes.Push(new StartingZone(player));
+            makruul = new Makruul();
+            TellStoryTask();
             Run();
         }
 
         public bool IsDone()
         {
-            return bossEncounter.IsDone();
+            return makruul.health <= 0;
         }
 
         public void Run()
         {
             // Make progress until Level 5, then face of with Makruul,
-            
-            while (player._level <6)
+            while (makruul.health >0)
             {
                 if (actionNodes.Count > 0) actionNodes.Pop().Run();
-                else actionNodes.Push(new PlayerAction(player, actionNodes));
+                else actionNodes.Push(new PlayerAction(player, actionNodes, makruul));
             }
-            
-            bossEncounter.Run();
-            
+
+            Console.WriteLine("Congratulations, You slayed Makruuel the gruesome and saved Svelinge, that's pretty cool of u!");
         }
     }
 }

@@ -76,7 +76,7 @@ namespace Makruul
         public void PerformChoice(int choice)
         {
             
-            if(choice >0 && choice <=2) player.PerformOption(choice);
+            if(choice >=0 && choice <=2) player.PerformOption(choice);
             else if(choice == 3) establishments[0].PerformOption();
             else if(choice == 4) establishments[1].PerformOption();
             else

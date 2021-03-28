@@ -12,13 +12,12 @@ namespace Makruul
         private List<Food> _foods;
 
         private int Experience { get; set; }
-        public int _level = 1;
+        public int Level = 1;
         private int _baseDmg = 15;
         private int baseHealth;
         private Weapon equipedWeapon;
         private List<Weapon> Weapons => _weapons;
         private readonly List<Weapon> _weapons;
-        
         public int goldCoins;
         
 
@@ -46,15 +45,15 @@ namespace Makruul
         private void LevelUp()
         {
             var newLevel = Experience / 100;
-            for (int i = _level; i <= newLevel; i++)
+            for (int i = Level; i <= newLevel; i++)
             {
                 var bonusHealth = 15;
                 var bonusDamage = 5;
                 
-                _level++;
+                Level++;
                 baseHealth += bonusHealth;
                 _baseDmg += bonusDamage;
-                Console.WriteLine($"You level up to Level {_level} gaining {bonusHealth} health and {bonusDamage} baseDamage");
+                Console.WriteLine($"You level up to Level {Level} gaining {bonusHealth} health and {bonusDamage} baseDamage");
             }
         }
 
@@ -106,7 +105,7 @@ namespace Makruul
 
         private Boolean ShouldLevelUp()
         {
-            return Experience > (_level * 100);
+            return Experience > (Level * 100);
         }
 
         public override int Attack<T>(T entity)
@@ -120,9 +119,9 @@ namespace Makruul
         public override string ToString()
         {
             return $"" +
-                   $"Health: {baseHealth}/{health} Hp remaining\n" +
+                   $"Health: {health}/{baseHealth} Hp remaining\n" +
                    $"Currently equiped: {equipedWeapon}\n" +
-                   $"Currently Lvl: {_level}\n" +
+                   $"Currently Lvl: {Level}\n" +
                    $"Goldcoins: {goldCoins}\n" ;
         }
 

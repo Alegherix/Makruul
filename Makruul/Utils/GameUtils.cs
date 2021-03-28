@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading;
 
 namespace Makruul
@@ -25,6 +26,17 @@ namespace Makruul
 
             Console.WriteLine();
             return choice;
+        }
+
+        public static Encounter CreateRandomEncounter(Player player)
+        {
+            List<Monster> monsters = new List<Monster>();
+            monsters.Add(new Wolf());
+            monsters.Add(new Ghoul());
+            monsters.Add(new Dragon());
+            monsters.Add(new Basilisk());
+            int randomVal =  new Random().Next(monsters.Count);
+            return new Encounter(player, monsters[randomVal]);
         }
     }
 }

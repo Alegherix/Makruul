@@ -28,10 +28,11 @@ namespace Makruul
         
         public bool GetPlayerFightResponse()
         {
+            GameUtils.GetDelayedText($"You spot a {monster.name} in the distance", 950);
             Console.WriteLine("What do you want to do?");
-            Console.WriteLine("1) I laugh in the face of danger, I want to kill whatever it might be");
+            Console.WriteLine($"1) I laugh in the face of danger, I want to kill {monster.name}!!");
             Console.WriteLine("2) I'm a feeling a little off about this one, time to flee");
-            Console.Write("1/2?: ");
+            Console.Write("1/2: ");
             if (!int.TryParse(Console.ReadLine(), out var answer))
             {
                 Console.WriteLine("You have to type either 1 or 2!");
@@ -81,6 +82,7 @@ namespace Makruul
         
         private void FleeTheScene(){
             Console.WriteLine("You take of running for your dear life, it might have been the best choice, and it might not, you'll never know now...");
+            _isDone = true;
         }
 
         private void DecideAction(bool wantAction, Action firstChoice, Action secondChoice)

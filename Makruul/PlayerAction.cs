@@ -8,11 +8,14 @@ namespace Makruul
         Player player;
         private Stack<INode> actionNodes;
         private bool _isDone;
+        private Monster makruul;
 
-        public PlayerAction(Player player, Stack<INode> actionNodes)
+        public PlayerAction(Player player, Stack<INode> actionNodes, Monster makruul)
         {
             this.player = player;
             this.actionNodes = actionNodes;
+            this.makruul = makruul;
+
         }
 
         public bool IsDone()
@@ -48,7 +51,9 @@ namespace Makruul
             if(choice >= 0 && choice <=2) player.PerformOption(choice);
             else if (choice == 3)
             {
-                
+                if(player.Level >=6) actionNodes.Push(new Encounter(player, makruul));
+                else actionNodes.Push(GameUtils.CreateRandomEncounter(player));
+                _isDone = true;
             }
             else if (choice == 4)
             {
